@@ -10,7 +10,9 @@ Suitable for MacOS only.
 fi
 
 DIR=~/.ivy2/cache
-TMPF=/tmp/jdff-$$
+TMPD=/tmp/jdff
+mkdir -p $TMPD
+TMPF=$TMPD/$$
 
 find $DIR -iname '*-javadoc.jar' >$TMPF
 for PAT in "$@"
@@ -32,6 +34,9 @@ done
 echo "</ol>" >> $TMPF.htm
 
 osascript -e "tell application \"Firefox\"" -e "activate" -e "open location \"file://$TMPF.htm\"" -e "end tell"
+
+# clean up old temp files not access recently
+find $TMPD -atime +1h -delete
 
 # open -a Firefox --args "jar:file://$1!/index.html"
 # This command is not stable.  Firefox is only able to open the URL at first time.
