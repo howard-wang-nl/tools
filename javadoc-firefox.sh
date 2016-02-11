@@ -13,15 +13,23 @@ DIR=~/.ivy2/cache
 TMPD=/tmp/jdff
 mkdir -p $TMPD
 TMPF=$TMPD/$$
+NOT_FOUND=0
 
 find $DIR -iname '*-javadoc.jar' >$TMPF
 for PAT in "$@"
 do
   fgrep -i "$PAT" <$TMPF >$TMPF.1 && mv $TMPF.1 $TMPF
+  if [ $? -ne 0 ]; then NOT_FOUND=1; fi
 done
 
-echo "javadoc.jar files matching \"$@\" found in ~/.ivy2/cache/
-<ol>" > $TMPF.htm
+if [ $NOT_FOUND -eq 1 ]
+then
+  echo "javadoc.jar files matching \"$@\" <font color="red">NOT</font> found in ~/.ivy2/cache/.  Partial matching or all javadoc.jar files are shown instead:"
+else
+  echo "javadoc.jar files matching \"$@\" found in ~/.ivy2/cache/:"
+fi > $TMPF.htm
+
+echo "<ol>" >> $TMPF.htm
 
 cat $TMPF |
 while read JAR
