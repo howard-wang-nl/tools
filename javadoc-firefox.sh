@@ -2,7 +2,7 @@
 
 if [ ! "$1" ]
 then
-  echo "Search full path file name which matches all the provided sub-strings for Javadoc jar file stored in ~/ivy2/cache and open the first matched one in Firefox browser.
+  echo "Search full path file name which matches all the provided sub-strings for Javadoc jar file stored in ~/ivy2/cache and open a clickable list in Firefox.
 Usage: $0 <case insensitive sub-string of the file name> ...
 Suitable for MacOS only.
 "
