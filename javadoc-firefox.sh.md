@@ -11,7 +11,7 @@ Dash[1] is good but to select and download required docset of correct version is
 
 An alternative is to locate the javadoc.jar file and open them in Firefox with `jar:file:///path/javadoc.jar!/` , to save effort to search online docs with the correct version.
 
-Simple script to open Javadoc jar documentations in Firefox easily:
+Simple script for MacOS to open Javadoc jar documentations in Firefox easily:
 
 1. Save this script and name it as `/usr/local/bin/jdff` and `chmod +x`.
 2. Search for Spark MLLib Javadoc in `~/.ivy2/cache` and open clickable list in Firefox:
