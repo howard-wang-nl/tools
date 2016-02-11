@@ -7,7 +7,7 @@ Shift+F1 to view external javadoc doesn't work in IntelliJ even though the javad
 
 ### Solution
 
-Dash[1] is good but to select and download require docset of correct version is tedious.
+Dash[1] is good but to select and download required docset of correct version is tedious.
 
 An alternative is to locate the javadoc.jar file and open them in Firefox with `jar:file:///path/javadoc.jar!/` , to save effort to search online docs with the correct version.
 

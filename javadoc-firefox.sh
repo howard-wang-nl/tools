@@ -25,7 +25,7 @@ cat $TMPF |
 while read JAR
 do
   cat >>$TMPF.htm <<EOF
-<li><a href="jar:file://$JAR!/index.html">$JAR</a></li>
+<li><a href="jar:file://$JAR!/index.html">${JAR##*/.ivy2/cache/}</a></li>
 EOF
 done
 
