@@ -47,5 +47,5 @@ osascript -e "tell application \"Firefox\"" -e "activate" -e "open location \"fi
 # This command is not stable.  Firefox is only able to open the URL at first time.
 
 # clean up old temp files not accessed recently
-cd $TMPD; find . -atime +1h -delete
+find $TMPD -mindepth 1 -atime +1h -delete
 
