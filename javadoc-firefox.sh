@@ -9,13 +9,13 @@ Suitable for MacOS only.
   exit 1
 fi
 
-DIR=~/.ivy2/cache
+DIR=(~/.ivy2/cache ~/.m2/repository)
 TMPD=/tmp/jdff
 mkdir -p $TMPD
 TMPF=$TMPD/$$
 NOT_FOUND=0
 
-find $DIR -iname '*-javadoc.jar' >$TMPF
+find "${DIR[@]}" -iname '*-javadoc.jar' >$TMPF
 for PAT in "$@"
 do
   fgrep -i "$PAT" <$TMPF >$TMPF.1 && mv $TMPF.1 $TMPF
@@ -26,7 +26,7 @@ if [ $NOT_FOUND -eq 1 ]
 then
   echo "javadoc.jar files matching \"$@\" <font color="red">NOT</font> found in ~/.ivy2/cache/.  Partial matching or all javadoc.jar files are shown instead:"
 else
-  echo "javadoc.jar files matching \"$@\" found in ~/.ivy2/cache/:"
+  echo "javadoc.jar files matching \"$@\" found in ${DIR[@]}:"
 fi > $TMPF.htm
 
 echo "<ol>" >> $TMPF.htm
@@ -34,8 +34,13 @@ echo "<ol>" >> $TMPF.htm
 cat $TMPF |
 while read JAR
 do
+  # remove folder prefixes
+  JAR_D=${JAR##*/.ivy2/cache/}
+  JAR_D=${JAR_D##*/.m2/repository/}
+
+  # output html index
   cat >>$TMPF.htm <<EOF
-<li><a href="jar:file://$JAR!/index.html">${JAR##*/.ivy2/cache/}</a></li>
+<li><a href="jar:file://$JAR!/index.html">$JAR_D</a></li>
 EOF
 done
 
