@@ -2,14 +2,14 @@
 
 if [ ! "$1" ]
 then
-  echo "Search full path file name which matches all the provided sub-strings for Javadoc jar file stored in ~/.ivy2/cache and open a clickable list in Firefox.
+  echo "Search full path file name which matches all the provided sub-strings for Javadoc jar file stored in ~/.ivy2/{cache,local} and open a clickable list in Firefox.
 Usage: $0 <case insensitive sub-string of the file name> ...
 Suitable for MacOS only.
 "
   exit 1
 fi
 
-DIR=(~/.ivy2/cache ~/.m2/repository)
+DIR=(~/.ivy2/cache ~/.ivy2/local ~/.m2/repository)
 TMPD=/tmp/jdff
 mkdir -p $TMPD
 TMPF=$TMPD/$$
@@ -24,7 +24,7 @@ done
 
 if [ $NOT_FOUND -eq 1 ]
 then
-  echo "javadoc.jar files matching \"$@\" <font color="red">NOT</font> found in ~/.ivy2/cache/.  Partial matching or all javadoc.jar files are shown instead:"
+  echo "javadoc.jar files matching \"$@\" <font color="red">NOT</font> found in ${DIR[@]}.  Partial matching or all javadoc.jar files are shown instead:"
 else
   echo "javadoc.jar files matching \"$@\" found in ${DIR[@]}:"
 fi > $TMPF.htm
@@ -36,6 +36,7 @@ while read JAR
 do
   # remove folder prefixes
   JAR_D=${JAR##*/.ivy2/cache/}
+  JAR_D=${JAR_D##*/.ivy2/local/}
   JAR_D=${JAR_D##*/.m2/repository/}
 
   # output html index
