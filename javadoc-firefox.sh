@@ -11,6 +11,7 @@ fi
 
 DIR=(~/.ivy2/cache ~/.ivy2/local ~/.m2/repository)
 TMPD=/tmp/jdff
+mkdir -p "${DIR[@]}"
 mkdir -p $TMPD
 TMPF=$TMPD/$$
 NOT_FOUND=0
