@@ -10,3 +10,4 @@ Convenience tools maybe useful to be shared
 	Save it as "jdff" in your path, then run `jdff scala 2.11.7` will show you a list of scala-2.11.7 javadoc that you can 
 	click open in Firefox.
 
+![PartyParrot](partyparrot.gif)
