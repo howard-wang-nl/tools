@@ -4,7 +4,7 @@ if [ ! "$1" ]
 then
   echo "Search full path file name which matches all the provided sub-strings for Javadoc jar file stored in ~/.ivy2/{cache,local} and open a clickable list in Firefox.
 Usage: $0 <case insensitive sub-string of the file name> ...
-Suitable for MacOS only.
+Suitable for Linux only.
 "
   exit 1
 fi
@@ -16,7 +16,7 @@ mkdir -p $TMPD
 TMPF=$TMPD/$$
 NOT_FOUND=0
 
-find "${DIR[@]}" -iname '*-javadoc.jar' >$TMPF
+find -L "${DIR[@]}" -iname '*-javadoc.jar' >$TMPF
 for PAT in "$@"
 do
   fgrep -i "$PAT" <$TMPF >$TMPF.1 && mv $TMPF.1 $TMPF
@@ -48,11 +48,8 @@ done
 
 echo "</ol>" >> $TMPF.htm
 
-osascript -e "tell application \"Firefox\"" -e "activate" -e "open location \"file://$TMPF.htm\"" -e "end tell"
-
-# open -a Firefox --args "jar:file://$1!/index.html"
-# This command is not stable.  Firefox is only able to open the URL at first time.
+firefox -u file://$TMPF.htm
 
 # clean up old temp files not accessed recently
-find $TMPD -mindepth 1 -atime +1h -delete
+find $TMPD -mindepth 1 -amin +60 -delete
 
