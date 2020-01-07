@@ -25,12 +25,13 @@ done
 
 if [ $NOT_FOUND -eq 1 ]
 then
-  echo "javadoc.jar files matching \"$@\" <font color="red">NOT</font> found in ${DIR[@]}.  Partial matching or all javadoc.jar files are shown instead:"
+  echo "javadoc.jar files matching \"$@\" <font color="red">NOT</font> found in ${DIR[@]}.  Partial matching or all javadoc.jar files are shown instead: "
 else
   echo "javadoc.jar files matching \"$@\" found in ${DIR[@]}:"
 fi > $TMPF.htm
 
-echo "<ol>" >> $TMPF.htm
+echo "<ol>
+Right click to open in another tab and load the page manually, if direct click doesn't work." >> $TMPF.htm
 
 cat $TMPF |
 while read JAR
